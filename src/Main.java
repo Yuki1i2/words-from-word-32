@@ -70,7 +70,9 @@ public class Main {
                 status.setText("Файл сохранён");
             } catch (IOException ex) { JOptionPane.showMessageDialog(root, ex.getMessage()); }
         });
-        refresh.run();
+        if (example.isEmpty()) status.setText("Введите JSON и нажмите «Сгенерировать»");
+        else refresh.run();
+        save.setEnabled(!output.getText().isEmpty());
         return root;
     }
     public static void main(String[] args) throws Exception {
@@ -81,9 +83,14 @@ public class Main {
         }
         if (args.length != 0) throw new IllegalArgumentException("java -jar Words.jar [input.json output.json]");
         String example;
-        try (InputStream in = Main.class.getResourceAsStream("/example.json");
-             Scanner scanner = new Scanner(in, "UTF-8").useDelimiter("\\A")) {
-            example = scanner.next();
+        try (InputStream in = Main.class.getResourceAsStream("/example.json")) {
+            if (in == null) {
+                example = "";
+            } else {
+                try (Scanner scanner = new Scanner(in, "UTF-8").useDelimiter("\\A")) {
+                    example = scanner.hasNext() ? scanner.next() : "";
+                }
+            }
         }
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Слова из слова");
@@ -95,3 +102,4 @@ public class Main {
         });
     }
 }
+
