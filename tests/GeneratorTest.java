@@ -57,6 +57,14 @@ public class GeneratorTest {
             proverit(podslova.size() == 1);
             proverit((i == 0 ? "БАР" : "КОТ").equals(((Map<?,?>)podslova.get(0)).get("text")));
         }
+        for (String oshibka : Arrays.asList("12abc", "[1e]", "TRUE", "False", "NULL", "[1,\f2]", "[\u000B0]")) {
+            try {
+                Json.razobratJson(oshibka);
+                throw new AssertionError("Принят неверный JSON: " + oshibka);
+            } catch (IllegalArgumentException e) {
+                proverit(e.getMessage().contains("JSON"));
+            }
+        }
         StringBuilder dictionary = new StringBuilder();
         for (int i = 0; i < 100000; i++) {
             dictionary.append("\"щ");
