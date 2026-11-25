@@ -93,6 +93,7 @@ public final class Generator {
                 + "\",\n      \"difficulty\": \"" + difficulty + "\",\n      \"minWordsToPass\": "
                 + pass + ",\n      \"subWords\": [\n" + subWords + "\n      ]\n    }");
         }
+        if (levels.length() == 0) return "{\n  \"levels\": []\n}\n";
         return "{\n  \"levels\": [\n" + levels + "\n  ]\n}\n";
     }
 }

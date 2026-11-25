@@ -65,6 +65,10 @@ public class GeneratorTest {
                 proverit(e.getMessage().contains("JSON"));
             }
         }
+        String pustoy = Generator.sozdatUrovni(sformirovatVhod("", "БАРАБАН", 1));
+        proverit("{\n  \"levels\": []\n}\n".equals(pustoy));
+        String gotovyy = Generator.sozdatUrovni(obrazets);
+        proverit(gotovyy.endsWith("}\n") && !gotovyy.contains("\r"));
         StringBuilder dictionary = new StringBuilder();
         for (int i = 0; i < 100000; i++) {
             dictionary.append("\"щ");
