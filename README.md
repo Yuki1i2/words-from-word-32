@@ -2,6 +2,14 @@
 
 Генератор создаёт игровые уровни для русской словесной игры. На вход он получает словарь, список главных слов и настройки. Для каждого главного слова программа находит подслова, определяет сложность уровня и сохраняет результат в JSON. Приложение работает на Java 8 и новее, интерфейс написан на Swing.
 
+## Assignment 1 · Words from Word
+
+Build a Java program that takes a Russian dictionary, a list of main words and a configuration object, and generates game levels in JSON. Each level contains an ID, the main word, a difficulty rating, the number of subwords needed to pass and the list of valid subwords. Each subword has a text field and a hint.
+
+A subword must occur in the dictionary, meet the minimum length and use each letter at most as many times as it appears in the main word. The main word itself is excluded. For example, **БАРАН** fits **БАРАБАН**, while **БАРБАР** needs a second **Р**. Duplicate entries count once. A level is skipped if it has too few subwords.
+
+To run the example with Java 8 or later, use `java -jar Words.jar example.json output.json`. The sample produces two levels: **ДЕМОНСТРАЦИЯ** (HARD) and **ВЗАИМНОСТЬ** (MEDIUM). The input, expected output and a screenshot of the desktop application are included below.
+
 ## Как запустить
 
 В Windows дважды щёлкните по **run.bat**. В окне уже будет загружен пример. Измените словарь или главное слово, нажмите **Сгенерировать**, затем **Сохранить JSON**.
@@ -46,3 +54,5 @@ java -cp build GeneratorTest
 ## Ограничения
 
 Качество подслов зависит от словаря: программа не проверяет орфографию и значения слов. Подсказки остаются пустыми. Генератор один раз подсчитывает буквы каждого кандидата, но для каждого главного слова перебирает весь отфильтрованный словарь. Во время обработки большого файла окно может временно перестать отвечать. Такой файл удобно обработать из командной строки.
+
+[Журнал запросов и ответов ИИ по разработке](AI-usage.md)
