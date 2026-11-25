@@ -55,8 +55,8 @@ public class GeneratorTest {
         long start = System.nanoTime();
         proveritPodslova(dictionary.append("\"раб\"").toString(), "БАРАБАН", 1, "РАБ");
         System.out.println("100,001 entries: " + (System.nanoTime()-start)/1000000 + " ms");
-        String[] mains = {"БАРАБАН","БАРАБАНЫ","ДЕМОНСТРАЦИЯ"};
-        String[] difficulties = {"EASY","MEDIUM","HARD"};
+        String[] mains = {"БАРАБАН","БАРАБАНЫ","ВЗАИМНОСТЬ","ДЕМОНСТРАЦИЯ"};
+        String[] difficulties = {"EASY","MEDIUM","MEDIUM","HARD"};
         for (int i=0; i<mains.length; i++)
             proverit(difficulties[i].equals(((Map<?,?>)poluchitUrovni("\"раб\",\"сон\"", mains[i],1).get(0)).get("difficulty")));
         System.out.println("All tests passed.");
