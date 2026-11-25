@@ -40,7 +40,13 @@ public class Main {
             } catch (IllegalArgumentException e) {
                 output.setText("");
                 save.setEnabled(false);
-                status.setText(e.getMessage());
+                status.setText("Ошибка входных данных");
+                JTextArea message = new JTextArea(e.getMessage().trim(), 5, 44);
+                message.setEditable(false);
+                message.setLineWrap(true);
+                message.setWrapStyleWord(true);
+                message.setCaretPosition(0);
+                JOptionPane.showMessageDialog(root, new JScrollPane(message), "Ошибка", JOptionPane.ERROR_MESSAGE);
             }
         };
         input.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
