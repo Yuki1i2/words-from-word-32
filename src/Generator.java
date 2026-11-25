@@ -54,14 +54,28 @@ public final class Generator {
         int mediumCount = prochitatChislo(t, "mediumMaxSubWords", 0);
         if (easyLength > mediumLength || easyCount > mediumCount)
             throw new IllegalArgumentException("Порог EASY превышает MEDIUM.");
+        Set<String> glavnyyeSlova = prochitatSlova(input, "mainWords");
+        int maxDlina = 0;
+        int[] maksimumBukv = new int[33];
+        Map<String,int[]> sostavGlavnykh = new LinkedHashMap<>();
+        for (String main : glavnyyeSlova) {
+            int[] bukvy = podschitatBukvy(main);
+            sostavGlavnykh.put(main, bukvy);
+            maxDlina = Math.max(maxDlina, main.length());
+            for (int i = 0; i < bukvy.length; i++)
+                maksimumBukv[i] = Math.max(maksimumBukv[i], bukvy[i]);
+        }
         Map<String,int[]> candidates = new LinkedHashMap<>();
-        for (String word : prochitatSlova(input, "dictionary"))
-            if (word.length() >= minLength) candidates.put(word, podschitatBukvy(word));
+        for (String word : prochitatSlova(input, "dictionary")) {
+            if (word.length() < minLength || word.length() > maxDlina) continue;
+            int[] bukvy = podschitatBukvy(word);
+            if (khvataetBukv(bukvy, maksimumBukv)) candidates.put(word, bukvy);
+        }
 
         StringJoiner levels = new StringJoiner(",\n");
         int id = 0;
-        for (String main : prochitatSlova(input, "mainWords")) {
-            int[] available = podschitatBukvy(main);
+        for (String main : glavnyyeSlova) {
+            int[] available = sostavGlavnykh.get(main);
             List<String> matches = new ArrayList<>();
             for (Map.Entry<String,int[]> candidate : candidates.entrySet()) {
                 String word = candidate.getKey();
