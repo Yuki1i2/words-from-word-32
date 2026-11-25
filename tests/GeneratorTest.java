@@ -2,11 +2,14 @@ import java.util.*;
 
 public class GeneratorTest {
     static List<?> poluchitUrovni(String dictionary, String main, int pass) {
-        String input = "{\"dictionary\":[" + dictionary + "],\"mainWords\":[\"" + main
+        String input = sformirovatVhod(dictionary, main, pass);
+        return (List<?>) ((Map<?,?>) Json.razobratJson(Generator.sozdatUrovni(input))).get("levels");
+    }
+    static String sformirovatVhod(String dictionary, String main, int pass) {
+        return "{\"dictionary\":[" + dictionary + "],\"mainWords\":[\"" + main
             + "\"],\"config\":{\"minSubWordLength\":3,\"minWordsToPass\":" + pass
             + ",\"difficultyThresholds\":{\"easyMaxMainWordLength\":7,\"mediumMaxMainWordLength\":10,"
             + "\"easyMaxSubWords\":15,\"mediumMaxSubWords\":30}}}";
-        return (List<?>) ((Map<?,?>) Json.razobratJson(Generator.sozdatUrovni(input))).get("levels");
     }
     static void proverit(boolean ok) { if (!ok) throw new AssertionError(); }
     static void proveritPodslova(String dictionary, String main, int pass, String... expected) {
@@ -33,6 +36,15 @@ public class GeneratorTest {
         proveritPodslova("\"ле\u0308н\",\"ЛЕН\"", "кЛёН", 1, "ЛЁН");
         proveritPodslova("\"кит\"", "БАРАБАН", 1);
         proveritPodslova("\"бар\",\"раб\"", "БАРАБАН", 2, "БАР", "РАБ");
+        String obrazets = sformirovatVhod("\"раб\"", "БАРАБАН", 1);
+        for (String nevernoe : Arrays.asList("3.5", "2147483648", "-1")) {
+            try {
+                Generator.sozdatUrovni(obrazets.replace("\"minWordsToPass\":1", "\"minWordsToPass\":" + nevernoe));
+                throw new AssertionError("Принято недопустимое значение " + nevernoe);
+            } catch (IllegalArgumentException e) {
+                proverit(e.getMessage().contains("minWordsToPass") && e.getMessage().contains(nevernoe));
+            }
+        }
         StringBuilder dictionary = new StringBuilder();
         for (int i = 0; i < 100000; i++) {
             dictionary.append("\"щ");
