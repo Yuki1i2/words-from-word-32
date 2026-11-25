@@ -13,12 +13,13 @@ public class Main {
         JPanel root = new JPanel(new BorderLayout(12,12));
         root.setBorder(BorderFactory.createEmptyBorder(18,20,18,20));
         JLabel title = new JLabel("Слова из слова");
-        title.setFont(new Font("Serif", Font.BOLD, 34));
+        title.setFont(title.getFont().deriveFont(Font.BOLD, 34f));
         root.add(title, BorderLayout.NORTH);
         JTextArea input = new JTextArea(example), output = new JTextArea();
         output.setEditable(false);
         JPanel editors = new JPanel(new GridLayout(1,2,12,0));
         for (JTextArea area : new JTextArea[]{input,output}) {
+            area.setColumns(24);
             area.setFont(new Font("Monospaced", Font.PLAIN, 14));
             JScrollPane scroll = new JScrollPane(area);
             scroll.setBorder(BorderFactory.createTitledBorder(area == input ? "Входные данные" : "Уровни JSON"));
@@ -88,4 +89,3 @@ public class Main {
         });
     }
 }
-
