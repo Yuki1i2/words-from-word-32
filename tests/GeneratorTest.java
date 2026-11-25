@@ -48,6 +48,15 @@ public class GeneratorTest {
         proveritPodslova("\"кит\"", "БАРАБАН", 0);
         proveritPodslova("\"раб\"", "БАРАБАН", 0, "РАБ");
         proveritPodslova("\"лёд\",\"лед\",\"лёдом\"", "ЛЁДОМ", 1, "ЛЁД");
+        String dvaSlova = sformirovatVhod("\"бар\",\"кот\",\"бат\"", "БАРАБАН", 1)
+                .replace("[\"БАРАБАН\"]", "[\"БАРАБАН\",\"КОТИК\"]");
+        List<?> para = (List<?>) ((Map<?,?>)Json.razobratJson(Generator.sozdatUrovni(dvaSlova))).get("levels");
+        proverit(para.size() == 2);
+        for (int i = 0; i < para.size(); i++) {
+            List<?> podslova = (List<?>)((Map<?,?>)para.get(i)).get("subWords");
+            proverit(podslova.size() == 1);
+            proverit((i == 0 ? "БАР" : "КОТ").equals(((Map<?,?>)podslova.get(0)).get("text")));
+        }
         StringBuilder dictionary = new StringBuilder();
         for (int i = 0; i < 100000; i++) {
             dictionary.append("\"щ");
