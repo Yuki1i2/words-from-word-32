@@ -13,12 +13,13 @@ public final class Generator {
     private static int prochitatChislo(Map<?,?> map, String key, int minimum) {
         Object value = map.get(key);
         if (value instanceof BigDecimal) {
-            try {
-                int n = ((BigDecimal)value).intValueExact();
-                if (n >= minimum) return n;
-            } catch (ArithmeticException ignored) { }
+            BigDecimal n = (BigDecimal)value;
+            if (n.compareTo(BigDecimal.valueOf(minimum)) >= 0
+                    && n.compareTo(BigDecimal.valueOf(Integer.MAX_VALUE)) <= 0
+                    && n.stripTrailingZeros().scale() <= 0) return n.intValue();
         }
-        throw new IllegalArgumentException("Недопустимое значение " + key);
+        throw new IllegalArgumentException("Для " + key + " ожидалось целое число от " + minimum
+                + " до " + Integer.MAX_VALUE + ", получено: " + value);
     }
     private static Set<String> prochitatSlova(Map<?,?> input, String key) {
         Object array = input.get(key);
