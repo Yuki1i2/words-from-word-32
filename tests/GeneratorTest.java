@@ -45,6 +45,8 @@ public class GeneratorTest {
                 proverit(e.getMessage().contains("minWordsToPass") && e.getMessage().contains(nevernoe));
             }
         }
+        proveritPodslova("\"кит\"", "БАРАБАН", 0);
+        proveritPodslova("\"раб\"", "БАРАБАН", 0, "РАБ");
         StringBuilder dictionary = new StringBuilder();
         for (int i = 0; i < 100000; i++) {
             dictionary.append("\"щ");
