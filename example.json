@@ -1,0 +1,18 @@
+{
+  "dictionary": [
+    "десант", "адрес", "армия", "место", "метро",
+    "сон", "нос", "мир", "тон", "рост", "мост",
+    "сито", "нить", "звон", "зима", "мина"
+  ],
+  "mainWords": ["ДЕМОНСТРАЦИЯ", "ВЗАИМНОСТЬ"],
+  "config": {
+    "minSubWordLength": 3,
+    "minWordsToPass": 8,
+    "difficultyThresholds": {
+      "easyMaxMainWordLength": 7,
+      "mediumMaxMainWordLength": 10,
+      "easyMaxSubWords": 15,
+      "mediumMaxSubWords": 30
+    }
+  }
+}

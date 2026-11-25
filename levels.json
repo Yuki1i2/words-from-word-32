@@ -1,0 +1,42 @@
+{
+  "levels": [
+    {
+      "id": 1,
+      "mainWord": "ДЕМОНСТРАЦИЯ",
+      "difficulty": "HARD",
+      "minWordsToPass": 8,
+      "subWords": [
+        {"text": "ДЕСАНТ", "hint": ""},
+        {"text": "АДРЕС", "hint": ""},
+        {"text": "АРМИЯ", "hint": ""},
+        {"text": "МЕСТО", "hint": ""},
+        {"text": "МЕТРО", "hint": ""},
+        {"text": "СОН", "hint": ""},
+        {"text": "НОС", "hint": ""},
+        {"text": "МИР", "hint": ""},
+        {"text": "ТОН", "hint": ""},
+        {"text": "РОСТ", "hint": ""},
+        {"text": "МОСТ", "hint": ""},
+        {"text": "СИТО", "hint": ""},
+        {"text": "МИНА", "hint": ""}
+      ]
+    },
+    {
+      "id": 2,
+      "mainWord": "ВЗАИМНОСТЬ",
+      "difficulty": "MEDIUM",
+      "minWordsToPass": 8,
+      "subWords": [
+        {"text": "СОН", "hint": ""},
+        {"text": "НОС", "hint": ""},
+        {"text": "ТОН", "hint": ""},
+        {"text": "МОСТ", "hint": ""},
+        {"text": "СИТО", "hint": ""},
+        {"text": "НИТЬ", "hint": ""},
+        {"text": "ЗВОН", "hint": ""},
+        {"text": "ЗИМА", "hint": ""},
+        {"text": "МИНА", "hint": ""}
+      ]
+    }
+  ]
+}
