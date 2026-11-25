@@ -47,6 +47,7 @@ public class GeneratorTest {
         }
         proveritPodslova("\"кит\"", "БАРАБАН", 0);
         proveritPodslova("\"раб\"", "БАРАБАН", 0, "РАБ");
+        proveritPodslova("\"лёд\",\"лед\",\"лёдом\"", "ЛЁДОМ", 1, "ЛЁД");
         StringBuilder dictionary = new StringBuilder();
         for (int i = 0; i < 100000; i++) {
             dictionary.append("\"щ");
