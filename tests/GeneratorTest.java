@@ -26,7 +26,24 @@ public class GeneratorTest {
             proverit(entry.size() == 2 && expected[i].equals(entry.get("text")) && "".equals(entry.get("hint")));
         }
     }
+    static void proveritGranitsyPoChisluPodslov() {
+        String[] slova = {"раб", "бар", "баран"};
+        String[] slozhnost = {"EASY", "MEDIUM", "HARD"};
+        StringJoiner slovar = new StringJoiner(",");
+        for (int i = 0; i < slova.length; i++) {
+            slovar.add("\"" + slova[i] + "\"");
+            String vhod = sformirovatVhod(slovar.toString(), "БАРАБАН", 1)
+                    .replace("\"easyMaxSubWords\":15", "\"easyMaxSubWords\":1")
+                    .replace("\"mediumMaxSubWords\":30", "\"mediumMaxSubWords\":2");
+            Map<?,?> rezultat = (Map<?,?>) Json.razobratJson(Generator.sozdatUrovni(vhod));
+            Map<?,?> uroven = (Map<?,?>) ((List<?>) rezultat.get("levels")).get(0);
+            proverit(((List<?>) uroven.get("subWords")).size() == i + 1);
+            proverit(slozhnost[i].equals(uroven.get("difficulty")));
+        }
+    }
+
     public static void main(String[] args) {
+        proveritGranitsyPoChisluPodslov();
         proverit(Collections.emptyMap().equals(Json.razobratJson("\uFEFF{}")));
         proveritPodslova("\"баран\"", "БАРАБАН", 1, "БАРАН");
         proveritPodslova("\"барбар\",\"раб\"", "БАРАБАН", 1, "РАБ");
